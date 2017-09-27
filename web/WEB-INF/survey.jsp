@@ -21,7 +21,7 @@
                     <option value="Other">Other</option>
                 </select><br>
                 Income: <input type="number" name="income" value="${incomeValue}"></br>
-                Age: <input type="age" name="age" value="${ageValue}"></br>
+                Age: <input type="number" name="age" value="${ageValue}"></br>
                 <input type="submit" value="submit">
             </form>
         </div>
