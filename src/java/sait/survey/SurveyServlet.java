@@ -5,15 +5,9 @@
  */
 package sait.survey;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +34,14 @@ public class SurveyServlet extends HttpServlet {
         int income = Integer.parseInt(request.getParameter("income"));
         int age = Integer.parseInt(request.getParameter("age"));
 
-       
+        String path = getServletContext().getRealPath("/WEB-INF/surveys.txt");
+
+        // to append to a file
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
+        
+        String line = gender + "," + income + "," + age;
+        pw.println(line.trim());
+        pw.close();
 
         getServletContext().getRequestDispatcher("/WEB-INF/surveyComplete.jsp").forward(request, response);
     }
