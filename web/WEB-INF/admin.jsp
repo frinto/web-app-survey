@@ -9,9 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Admin</h1><br>
+        <p>${numOfSurveysCompleted} surveys have been completed</p>
+        <p>
+            You can head back using this link<br>
+            <a href ="index">Home</a>
+        </p>
     </body>
 </html>
