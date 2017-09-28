@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import sait.business.Survey;
 
 /**
  *
@@ -30,19 +31,32 @@ public class SurveyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String url = "";
         String gender = request.getParameter("gender");
-        int income = Integer.parseInt(request.getParameter("income"));
-        int age = Integer.parseInt(request.getParameter("age"));
+        String incomeString = request.getParameter("income");
+        String ageString = request.getParameter("age");
 
-        String path = getServletContext().getRealPath("/WEB-INF/surveys.txt");
+        if (incomeString.equals("") || ageString.equals("")) {
+            url = "/WEB-INF/survey.jsp";
+            request.setAttribute("action", "survey");
+            request.setAttribute("messageToSurvey", "Please ensure the survey is complete before submission.");
+        } 
+        else {
+            url = "/WEB-INF/surveyComplete.jsp";
+            request.setAttribute("action", "surveyComplete");
+            int income = Integer.parseInt(request.getParameter("income"));
+            int age = Integer.parseInt(request.getParameter("age"));
 
-        // to append to a file
-        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
-        
-        String line = gender + "," + income + "," + age;
-        pw.println(line.trim());
-        pw.close();
+            String path = getServletContext().getRealPath("/WEB-INF/surveys.txt");
 
-        getServletContext().getRequestDispatcher("/WEB-INF/surveyComplete.jsp").forward(request, response);
+            // to append to a file
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
+
+            String line = gender + "," + income + "," + age;
+            pw.println(line.trim());
+            pw.close();
+        }
+
+        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 }

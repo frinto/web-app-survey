@@ -21,6 +21,13 @@ public class Survey implements Serializable {
     {
         
     }
+    
+    public Survey(String gender, int income, int age)
+    {
+        this.gender = gender;
+        this.income = income;
+        this.age = age;
+    }
 
     public String getGender() {
         return gender;
